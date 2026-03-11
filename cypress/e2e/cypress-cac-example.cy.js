@@ -8,22 +8,22 @@ describe('Testando cac com cypress', () => {
   })
 
   it('preenche os campos obrigatórios e envia o formulário', () => {
-    requireFields.typeField('firstname','Rafael')
-    requireFields.typeField('lastname','silva')
-    requireFields.typeField('email','rafaelteste@teste.com')
-    requireFields.typeField('feedbackfield','testando campo obrigatorio')
+    requireFields.typeFirstName('Rafael')
+    requireFields.typeLastName('silva')
+    requireFields.typeEmail('rafaelteste@teste.com')
+    requireFields.typeFeedbackField('feedbackfield','testando campo obrigatorio')
 
-    cy.get('.button').click()
+    requireFields.clickButton()
     cy.get('.success').should('be.visible')
   })
 
   it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
-    requireFields.typeField('firstname','Rafael')
-    requireFields.typeField('lastname','silva')
-    requireFields.typeField('email','rafaelteste')
-    requireFields.typeField('feedbackfield','testando campo obrigatorio')
+    requireFields.typeFirstName('Rafael')
+    requireFields.typeLastName('silva')
+    requireFields.typeEmail('rafaelteste')
+    requireFields.typeFeedbackField('feedbackfield','testando campo obrigatorio')
 
-    cy.get('.button').click()
+    requireFields.clickButton()
     cy.get('.error').should('be.visible')
   })
 
@@ -33,29 +33,29 @@ describe('Testando cac com cypress', () => {
   })
 
   it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido', () => {
-    requireFields.typeField('firstname','Rafael')
-    requireFields.typeField('lastname','silva')
-    requireFields.typeField('email','rafaelteste@teste.com')
-    requireFields.typeField('feedbackfield','testando campo obrigatorio')
+    requireFields.typeFirstName('Rafael')
+    requireFields.typeLastName('silva')
+    requireFields.typeEmail('rafaelteste@teste.com')
+    requireFields.typeFeedbackField('testando campo obrigatorio')
 
     cy.get('#phone-checkbox').check()
-    cy.get('.button').click()
+    requireFields.clickButton()
     cy.get('.error').should('be.visible')
   })
 
   it('preenche e limpa os campos nome, sobrenome, email e telefone', () => {
-    requireFields.typeField('firstname','Rafael')
+    requireFields.typeFirstName('Rafael')
     requireFields.clearField('firstname')
-    requireFields.typeField('lastname','silva')
+    requireFields.typeLastName('silva')
     requireFields.clearField('lastname')
-    requireFields.typeField('email','rafaelteste')
+    requireFields.typeEmail('rafaelteste')
     requireFields.clearField('email')
-    requireFields.typeField('feedbackfield','testando campo obrigatorio')
+    requireFields.typeFeedbackField('testando campo obrigatorio')
     requireFields.clearField('feedbackfield')     
   })
   
-  it.only('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => {
-    cy.get('.button').click()
+  it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => {
+    requireFields.clickButton()
     cy.get('.error').should('be.visible')
   })
 })
