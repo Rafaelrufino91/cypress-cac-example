@@ -18,7 +18,7 @@ describe('Testando formulario cac com cypress', () => {
   const invalidInput = {
     name: '',
     lastname: '',
-    email: '',
+    email: 'rafaelteste',
     feedbackfield: ''
   }
 
@@ -35,7 +35,7 @@ describe('Testando formulario cac com cypress', () => {
     it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
       form.typeFirstName(validInput.name)
       form.typeLastName(validInput.lastname)
-      form.typeEmail('rafaelteste')
+      form.typeEmail(invalidInput.email)
       form.typeFeedbackField(validInput.feedbackfield)
 
       form.clickButton()
@@ -43,7 +43,7 @@ describe('Testando formulario cac com cypress', () => {
     })
 
     it('validar se ao digitar valor *não numérico* no campo de telefone campo continue *vazio*', () => {
-      cy.get('#phone').type('teste campo numerico')
+      form.typePhone('teste campo numerico')
       cy.get('#phone').should('have.value', '')
     })
 
@@ -63,7 +63,7 @@ describe('Testando formulario cac com cypress', () => {
       form.clearField('firstname')
       form.typeLastName(validInput.lastname)
       form.clearField('lastname')
-      form.typeEmail('rafaelteste')
+      form.typeEmail(validInput.email)
       form.clearField('email')
       form.typeFeedbackField(validInput.feedbackfield)
       form.clearField('feedbackfield')     
@@ -73,4 +73,5 @@ describe('Testando formulario cac com cypress', () => {
       form.clickButton()
       form.validationAlert('erroralert')
     })
-  })
+
+    })
